@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Libros</title>
+    <!-- Enlaces a Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2>Listar Libros</h2>
+    <div th:if="${mensaje}" id="mensaje" class="alert alert-success">
+        <p th:text="${mensaje}"></p>
+    </div>
+    <a th:href="@{/libros/crear-libro}"><button class="btn btn-primary">Nuevo libro</button></a>
+    <a th:href="@{/libros/export-pdf}"><button class="btn btn-secondary">Descargar reporte</button></a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Autor</th>
+            <th>Fecha de Publicación</th>
+            <th>Género</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="libro : ${libros}">
+            <td th:text="${libro.id}"></td>
+            <td th:text="${libro.nombreLibro}"></td>
+            <td th:text="${libro.nombreAutor}"></td>
+            <td th:text="${libro.fechaPublicacion}"></td>
+            <td th:text="${libro.genero}"></td>
+            <td>
+                <a th:href="@{/libros/editar-libro/{id}(id=${libro.id})}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/libros/eliminar-libro/{id}(id=${libro.id})}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>    
+</div>
+<script>
+    setTimeout(function() {
+        document.getElementById('mensaje').style.display = 'none';
+    }, 3000);
+</script>
+</body>
+</html>
